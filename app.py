@@ -15,11 +15,11 @@ class Article(db.Model):
 app.secret_key = app.secret_key = 'a_very_secret_key'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'bodik.kovalchuk1998@gmail.com'  # Замість цього введіть свою пошту
-app.config['MAIL_PASSWORD'] = 'Omega/969809'  # Введіть свій пароль
-app.config['MAIL_DEFAULT_SENDER'] = 'your_email@gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'bodik.kovalchuk1998@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Omega/969809'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 def __repr__(self):
@@ -54,14 +54,11 @@ def about():
 @app.route('/support', methods=['GET', 'POST'])
 def support():
     if request.method == 'POST':
-        # Отримання даних з форми
         first_name = request.form.get('fname')
         last_name = request.form.get('lname')
         email = request.form.get('email')
         phone = request.form.get('phone')
         message_content = request.form.get('message')
-
-        # Створення повідомлення
         msg = Message('Нове повідомлення з форми підтримки',
                       recipients=['bodik.kovalchuk1998@gmail.com'])
         msg.body = f"""
@@ -123,9 +120,6 @@ def post_up(id):
     else:
         article = Article.query.get(id)
         return render_template('post_up.html', article=article)
-
-
-
 
 
 
