@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_mail import Mail, Message
-from gunicorn import *
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -30,7 +30,6 @@ def __repr__(self):
 def index():
     return render_template("index.html")
 
-
 @app.route('/create-article', methods=['POST', 'GET'])
 def create_article():
     if request.method == "POST":
@@ -50,7 +49,6 @@ def create_article():
 @app.route('/about')
 def about():
     return render_template("about.html")
-
 
 @app.route('/support', methods=['GET', 'POST'])
 def support():
@@ -103,8 +101,6 @@ def post_del(id):
         return redirect('/posts')
     except:
         return "При видаленні статті сталась помилка "
-
-
 @app.route('/posts/<int:id>/up', methods=['POST', 'GET'])
 def post_up(id):
     article = Article.query.get(id)
@@ -121,8 +117,6 @@ def post_up(id):
     else:
         article = Article.query.get(id)
         return render_template('post_up.html', article=article)
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

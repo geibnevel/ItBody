@@ -9,6 +9,7 @@
             background-color: #2a2a2a;
             color: #fff;
             font-family: Arial, sans-serif;
+            display: block;
         }
 
         .container {
@@ -23,35 +24,26 @@
             margin-bottom: 30px;
         }
 
-        #title {
+        #title, #intro, #text {
             background-color: #1c1c1c;
             color: #fff;
             border: 2px solid #ffcc00;
             padding: 10px;
-            width: 60%;
             border-radius: 10px;
             transition: all 0.3s ease;
+        }
+
+        #title {
+            width: 60%;
         }
 
         #intro {
-            background-color: #1c1c1c;
-            color: #fff;
-            border: 2px solid #ffcc00;
-            padding: 10px;
             width: 80%;
-            border-radius: 10px;
-            transition: all 0.3s ease;
         }
 
         #text {
-            background-color: #1c1c1c;
-            color: #fff;
-            border: 2px solid #ffcc00;
-            padding: 10px;
             width: 100%;
-            border-radius: 10px;
             height: 150px;
-            transition: all 0.3s ease;
         }
 
         #title:focus, #intro:focus, #text:focus {
@@ -102,10 +94,61 @@
         .header-item:hover {
             color: #ffdd33;
         }
+
+
+        .modal {
+            display: block;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2a2a2a;
+            padding: 1000px;
+            border: 1px solid #ffcc00;
+            width: 300px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal input[type="password"] {
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #ffcc00;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #fff;
+            background-color: #1c1c1c;
+            text-align: center;
+        }
+
+        .modal button {
+            background-color: #ffcc00;
+            border: none;
+            color: #2a2a2a;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal button:hover {
+            background-color: #ffdd33;
+        }
+
     </style>
 </head>
 <body>
-
 
     <div class="header">
         <a href="/about" class="header-item">Про мене</a>
@@ -113,6 +156,13 @@
         <a href="/posts" class="header-item">Статті</a>
     </div>
 
+    <div class="modal">
+        <div class="modal-content">
+            <h2>Введіть пароль</h2>
+            <input type="password" id="password" placeholder="Пароль">
+            <button onclick="checkPassword()">Підтвердити</button>
+        </div>
+    </div>
 
     <div class="container mt-5">
         <h1>Додати статтю</h1>
@@ -124,5 +174,33 @@
         </form>
     </div>
 
+    <script>
+        function checkPassword() {
+            var password = document.getElementById("password").value;
+            if (password === "Omega969809") {
+                document.querySelector(".modal").style.display = "none"; // Приховуємо модальне вікно
+                document.body.style.display = "block"; // Показуємо сторінку
+            } else {
+                alert("Неправильний пароль! Ви будете перенаправлені на головну сторінку.");
+                window.location.href = "/";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+    <script>
+        function checkPassword() {
+            var password = document.getElementById("password").value;
+            if (password === "Omega969809") {
+                document.querySelector(".modal").style.display = "none"; // Приховуємо модальне вікно
+                document.body.style.display = "block"; // Показуємо сторінку
+            } else {
+                alert("Неправильний пароль! Ви будете перенаправлені на головну сторінку.");
+                window.location.href = "/";
+            }
+        }
+    </script>
 </body>
 </html>

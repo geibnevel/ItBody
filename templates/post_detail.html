@@ -103,6 +103,61 @@
             color: #bbb;
             font-size: 14px;
         }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border: 1px solid #ffcc00;
+            width: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal button {
+            background-color: #ffcc00;
+            border: none;
+            color: #2a2a2a;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .modal button:hover {
+            background-color: #ffdd33;
+        }
+
+        .modal .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .password-input {
+            margin-top: 15px;
+            padding: 10px;
+            width: 50%;
+            border-radius: 5px;
+            border: 2px solid #ffcc00;
+            background-color: #1c1c1c;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -118,10 +173,71 @@
         <p>{{ article.text }}</p>
         <p class="date"><b>Дата: {{ article.date.date() }}</b></p>
         <div class="btn-container">
-            <a href="/posts/{{ article.id }}/del" class="btn btn-danger">Видалити</a>
-            <a href="/posts/{{ article.id }}/up" class="btn btn-success">Редагувати</a>
+            <button class="btn btn-danger" onclick="openDeleteModal()">Видалити</button>
+            <button class="btn btn-success" onclick="openEditModal()">Редагувати</button>
         </div>
     </div>
+
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Підтвердити видалення</h2>
+            <p>Введіть пароль для підтвердження видалення:</p>
+            <input type="password" id="deletePassword" class="password-input" placeholder="Пароль">
+            <button class="btn-danger" onclick="confirmDelete()">Так</button>
+            <button onclick="closeDeleteModal()">Ні</button>
+        </div>
+    </div>
+
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Підтвердити редагування</h2>
+            <p>Введіть пароль для підтвердження редагування:</p>
+            <input type="password" id="editPassword" class="password-input" placeholder="Пароль">
+            <button class="btn-success" onclick="confirmEdit()">Так</button>
+            <button onclick="closeEditModal()">Ні</button>
+        </div>
+    </div>
+
+    <script>
+
+        function openDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+
+        function confirmDelete() {
+            const password = document.getElementById('deletePassword').value;
+            if (password === 'Omega969809') {
+                window.location.href = "/posts/{{ article.id }}/del";
+            } else {
+                alert('Невірний пароль!');
+            }
+        }
+
+
+        function confirmEdit() {
+            const password = document.getElementById('editPassword').value;
+            if (password === 'Omega969809') {
+                window.location.href = "/posts/{{ article.id }}/up";
+            } else {
+                alert('Невірний пароль!');
+            }
+        }
+    </script>
 
 </body>
 </html>
